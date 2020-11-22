@@ -3,17 +3,18 @@ kind: Deployment
 metadata:
   name: {{ template "fullname" . }}
   labels:
+    app: {{ template "fullname" . }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: {{ template "fullname" . }}
-      release: "{{ .Release.Name }}"
   template:
     metadata:
       labels:
         app: {{ template "fullname" . }}
+        chart: {{ template "busybox.chart" . }}
     spec:
       containers:
       - name: {{ .Chart.Name }}
